@@ -1,0 +1,156 @@
+<?php
+	session_start();
+	if(!$_SESSION['id'] || $_SESSION['Admin']=="User")
+	{
+		header("Location:index.html?logout=2");
+	}
+	include("connection.php");
+	
+	$name = explode(" ",$_GET['name']);
+	
+	$query = "SELECT * FROM `submitedData`
+	WHERE `date` ='$_GET[date]' 
+	AND `firstName` ='$name[1]' AND `lastName` ='$name[2]' LIMIT 1";
+
+	$result = mysqli_query($link, $query);
+		
+	$row = mysqli_fetch_array($result);
+	
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>Counslor Website</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    
+   <style>
+   
+   		.navbar-brand{
+   			font-size:1.8em;
+   			
+   		}
+   		
+   		#topContainer{
+   			background-image:url("background.jpg");
+   			height:400px;
+   			width:100%;
+   			background-size:cover;	
+   		}
+   		
+   		#topRow {
+   			margin-top:80px;
+   			text-align:center;	
+   		}
+   
+   		#topRow h1{
+   			font-size:300%;
+   
+   		}
+   		
+   		.bold{
+   			font-weight:bold;
+   		}
+   
+   		.marginTop{
+   			margin-top:30px;
+   		
+   		}
+   		
+   		.center{
+   			text-align:center;
+   		
+   		}
+   		
+   		.title {
+   			margin-top:100px;
+   			font-size:300%;
+   			
+   		}
+   		
+   		#footer{
+   			background-color: #B0D1FB;
+   			padding-top:70px;
+   			width:100%;
+   		}
+   		
+   		,marginBottom{
+   			margin-bottom:30px;
+   			
+   		}
+   		
+   		.appstoreImage{
+   			width:250px;
+   		
+   		}
+		th{
+			font-size:20px;
+		}
+		td{
+			font-size:20px;
+		}
+   </style>
+
+</head>
+
+<body class="dt-example">
+<body data-spy="scroll" data-target=".navbar-collapse">
+
+  <div class="navbar navbar-default navbar-fixed-top">
+  
+  	<div class="container">
+  	
+  		<div class="navbar-header pull-left">
+  		
+  			
+  			
+  			<a class="navbar-brand">Counslor Website</a>
+  			
+  		</div>
+  		
+  		<div class="pull-right">
+  			<ul class= "navbar-nav nav">
+				<li><a href="admin.php">View Ratings</a></li>
+				<li><a href="mainpage.php">Create a Rating</a></li>
+  				<li><a href="index.php?logout=1">Log Out</a></li>
+  		</div>
+  		
+  	</div>	
+  	
+  </div>
+  
+  
+ <div class="container contentContainer" id="topContainer">
+  		<div class="row">
+  		
+  			<div class="col-md-8 col-md-offset-3" id="topRow">
+
+				<table class="display" cellspacing="0" style="width:40%" >
+					<tr><th>First Name: </th><td><?php echo $row[firstName]; ?></td></tr>
+					<tr><th>Last Name: </th><td><?php echo $row[lastName]; ?></td></tr>
+					<tr><th>Grade: </th><td><?php echo $row[grade]; ?></td></tr>
+					<tr><th>Question 1: </th><td><?php echo $row[score1]; ?></td></tr>
+					<tr><th>Question 2: </th><td><?php echo $row[score2]; ?></td></tr>
+					<tr><th>Question 3: </th><td><?php echo $row[score3]; ?></td></tr>
+					<tr><th>Question 4: </th><td><?php echo $row[score4]; ?></td></tr>
+					<tr><th>Question 5: </th><td><?php echo $row[score5]; ?></td></tr>
+					<tr><th>Date Created: </th><td><?php echo $row[10]; ?></td></tr>
+					<tr><th>Created By: </th><td><?php echo $row[submitBy]; ?></td></tr>
+				</table>
+ 			
+ 			 </div>
+ 		 
+		</div>
+		
+  </div>
+  
+
+
+
+</body>
+</html>
